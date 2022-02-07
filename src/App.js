@@ -5,11 +5,13 @@ import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import './App.css';
 
 const App = () => {
+  // 何かのアクションをきっかけに再レンダーをかける。初期値も設定
   const [courseGoals, setCourseGoals] = useState([
     { text: 'Do all exercises!', id: 'g1' },
     { text: 'Finish the course!', id: 'g2' }
   ]);
 
+  //一つ前のアクションをupdatedGoalsに格納コピー、入力されたテキストとランダムなidを先頭に追加し返す
   const addGoalHandler = enteredText => {
     setCourseGoals(prevGoals => {
       const updatedGoals = [...prevGoals];
@@ -18,6 +20,7 @@ const App = () => {
     });
   };
 
+  //引数に入力goalidを取り、goalid以外のオブジェクトをfilterして返す
   const deleteItemHandler = goalId => {
     setCourseGoals(prevGoals => {
       const updatedGoals = prevGoals.filter(goal => goal.id !== goalId);
@@ -25,10 +28,11 @@ const App = () => {
     });
   };
 
+  //全てのリストを削除した時のテキスト内容を変数に格納
   let content = (
     <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
   );
-
+   
   if (courseGoals.length > 0) {
     content = (
       <CourseGoalList items={courseGoals} onDeleteItem={deleteItemHandler} />
